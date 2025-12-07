@@ -9,7 +9,7 @@ const Form = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const[creator,setCreator] = useState("")
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -28,11 +28,20 @@ const Form = () => {
     setPreview(url)
   }
 
+  const clearForm = ()=>{
+    setTitle('')
+    setDescription('')
+    setCategory('')
+    setFile('')
+    setCreator('')
+    setPreview(null)
+  }
+
   const handleSubmit = async (e)=>{
     e.preventDefault();
 
     if(!file)return  alert('Please upload File');
-    
+    setIsLoading(true)
     try {
       const formData = new FormData();
       formData.append('title',title);
@@ -41,9 +50,9 @@ const Form = () => {
       formData.append('creator',creator);
       formData.append('file',file)
   
-      for (const pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
-}   
+//       for (const pair of formData.entries()) {
+//       console.log(pair[0] + ': ' + pair[1]);
+// }   
       const res = await fetch('http://localhost:3000/api/upload',{
           method:'POST',
           body: formData
@@ -51,13 +60,18 @@ const Form = () => {
       );
   
       const data = await res.json();
-      console.log('Uploaded File:',data)
-      toast.success('Hash :',res.body.hash)
+      
+      console.log('Api response :',data)
+      toast.success('Success:',data.message)
     }
     catch(error){
+      toast.error('Error:',error)
       console.log('Error :',error)
-      toast.error('Error:',)
 
+    }
+    finally{
+      clearForm()
+      setIsLoading(false)
     }
     
     
@@ -72,11 +86,11 @@ const Form = () => {
     <>
       <ToastContainer />
        
-        <div className=" items-center md:items-start gap-6 justify-around rounded-xl flex flex-col-reverse  md:flex-row   lg:top-[8rem] md:left-[20rem] md:top-[1rem] py-[2rem] md:pb-[10rem] w-full">
+        <div className=" flex-1 items-center md:items-start gap-6 justify-around rounded-xl flex flex-col-reverse  md:flex-row  lg:top-[8rem] md:left-[20rem] md:top-[1rem] py-[2rem] md:pb-[10rem] w-full">
 
           <form className="flex flex-col w-[40vw] px-8 rounded-2xl space-y-10   ">
             <h2 className="text-gray-300  text-center lg:text-left font-nunito text-2xl font-semibold font-roboto">
-              Register Your Creation
+              Register Your IP
             </h2>
     
           <label class=" rounded-lg flex border-dashed outline-none hover:border-blue-400 border-2  border-gray-400 justify-between py-1">
@@ -133,7 +147,9 @@ const Form = () => {
               
                 className="px-4 py-2 bg-gray-600 focus:bg-black rounded-md text-white font-semibold"
               >
-                {isLoading ? "Registering..." : "Register IP"}
+                {isLoading ? <div class="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                  : "Register IP"}
+                
               </button>
             </div>
           </form>

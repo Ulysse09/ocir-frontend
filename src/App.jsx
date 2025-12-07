@@ -20,9 +20,9 @@ function App() {
 
   return (
     <>
-      <div className=' h-screen game-area js-game-area flex flex-col items-center  '>
-        <p className={`md:text-4xl text-xl     font-bold uppercase flex justify-around title ${clicked ? 'clicked' : ''}`}
-          onClick={()=>setClicked(true)}>Storyforge.ai</p>
+      <div className='h-screen game-area js-game-area  flex flex-col items-center  '>
+        <p className={`md:text-4xl text-xl animate-pulse     font-bold uppercase flex justify-around title ${clicked ? 'clicked' : ''}`}
+          onClick={()=>setClicked(true)}>okirr.ai</p>
       {
        clicked &&( 
        
