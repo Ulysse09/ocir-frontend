@@ -15,29 +15,15 @@ import {
 const items = [
   {
     title: "Register IP",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "View my assets",
+    url: "/view",
     icon: Inbox,
   },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+   
 ]
 
 export function AppSidebar() {

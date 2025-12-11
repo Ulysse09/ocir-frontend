@@ -21,10 +21,9 @@ function App() {
   return (
     <>
       <div className='h-screen game-area js-game-area  flex flex-col items-center  '>
-        <p className={`md:text-4xl text-xl animate-pulse     font-bold uppercase flex justify-around title ${clicked ? 'clicked' : ''}`}
+        <p className={`md:text-4xl text-xl animate-pulse     font-bold uppercase flex justify-around title clicked  `}
           onClick={()=>setClicked(true)}>okirr.ai</p>
-      {
-       clicked &&( 
+        
        
        <div className='flex flex-col md:gap-20 gap-8 items-center'>
         <div className='flex px-4 md:flex-row flex-col gap-8  md:text-left text-center  md:justify-between items-center'>
@@ -50,9 +49,7 @@ function App() {
   <Link to ='dashboard'>Start Creating</Link>
 </button>    
         
-        </div>)
-
-      } 
+        </div>
        
 
       
