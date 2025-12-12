@@ -22,7 +22,7 @@ function App() {
     <>
       <div className='h-screen game-area js-game-area  flex flex-col items-center  '>
         <p className={`md:text-4xl text-xl animate-pulse     font-bold uppercase flex justify-around title clicked  `}
-          onClick={()=>setClicked(true)}>okirr.ai</p>
+          onClick={()=>setClicked(true)}>okirr.ip</p>
         
        
        <div className='flex flex-col md:gap-20 gap-8 items-center'>

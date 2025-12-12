@@ -13,6 +13,8 @@ const Form = () => {
 
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [previewLink,setPreviewLink] = useState('')
+  const [open,setOpen] = useState(false)
 
   const handleFileChange =  (e) => {
     console.log('handling..')
@@ -53,7 +55,7 @@ const Form = () => {
 //       for (const pair of formData.entries()) {
 //       console.log(pair[0] + ': ' + pair[1]);
 // }   
-      const res = await fetch('http://localhost:3000/api/upload',{
+      const res = await fetch('https://okirr-backend.onrender.com/api/upload',{
           method:'POST',
           body: formData
         }
@@ -62,7 +64,9 @@ const Form = () => {
       const data = await res.json();
       
       console.log('Api response :',data)
-      toast.success('Success:',data.message)
+      toast.success(`Success:${data.message}`)
+      setPreviewLink(data.link)
+      setOpen(true)
     }
     catch(error){
       toast.error('Error:',error)
@@ -85,6 +89,32 @@ const Form = () => {
   return (
     <>
       <ToastContainer />
+
+       {open && (
+        <div className="fixed inset-0 bg-white/70 flex items-center justify-center">
+          <div className="bg-neutral-900 p-6 rounded-xl shadow-lg w-80">
+            <h2 className="text-white text-lg font-semibold mb-3">
+              Click to view Ip Asset
+            </h2>
+
+            <a
+              href={previewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 underline break-words"
+            >
+              {previewLink}
+            </a>
+
+            <button
+              onClick={() => setOpen(false)}
+              className="mt-4 w-full bg-neutral-700 text-white py-2 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
        
         <div className=" flex-1 items-center md:items-start gap-6 justify-around rounded-xl flex flex-col-reverse  md:flex-row  lg:top-[8rem] md:left-[20rem] md:top-[1rem] py-[2rem] md:pb-[10rem] w-full">
 
